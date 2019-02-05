@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Scroll from './Scroll';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
+import Scroll from '../components/Scroll';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
 // import { robots } from './robots'; //commented out because using fetch to get real data instead of hardcoded 
 import './App.css';
 
@@ -26,29 +26,33 @@ class App extends Component {
   }
 
   onSearchChange = (event) => {
-
     this.setState({ searchField: event.target.value });
-    
   }
 
   render() {
 
-    const filteredRobots = this.state.robots.filter(robots => {
-      return robots.name.toLocaleLowerCase().includes(this.state.searchField.toLocaleLowerCase())
+    const { robots, searchField } = this.state;
+    const filteredRobots = robots.filter(robot => {
+      return robot.name.toLocaleLowerCase().includes(searchField.toLocaleLowerCase())
     });
     // console.log(filteredRobots);
 
-    return (
-      <div className="tc">
-        <div>
-        <h1 className="f1">RoboFriends</h1>
-        <SearchBox searchChange={this.onSearchChange} />
+    if(!robots.length) {
+      return <h2>LOADING...</h2>
+    }
+    else {
+      return (
+        <div className="tc">
+          <div>
+          <h1 className="f1">RoboFriends</h1>
+          <SearchBox searchChange={this.onSearchChange} />
+          </div>
+          <Scroll>
+            <CardList robots={filteredRobots} />
+          </Scroll>
         </div>
-        <Scroll>
-          <CardList robots={filteredRobots} />
-        </Scroll>
-      </div>
-    );
+      );
+    }
   }
 }
 
