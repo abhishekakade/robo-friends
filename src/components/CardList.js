@@ -3,6 +3,11 @@ import Card from './Card';
 
 const CardList = ({ robots }) => {
 
+  // To check error handling with ErrorBoundary component 
+  // if(true) {
+  //   throw new Error('Error checking to see if ErrorBoundary works lol!');
+  // }
+
   const cardsArray = robots.map((user, i) => {
     return (
       <Card 

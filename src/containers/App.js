@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Scroll from '../components/Scroll';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
+import ErrorBoundary from '../components/ErrorBoundary';
 // import { robots } from './robots'; //commented out because using fetch to get real data instead of hardcoded 
 import './App.css';
 
@@ -48,7 +49,9 @@ class App extends Component {
           <SearchBox searchChange={this.onSearchChange} />
           </div>
           <Scroll>
-            <CardList robots={filteredRobots} />
+            <ErrorBoundary>
+              <CardList robots={filteredRobots} />
+            </ErrorBoundary>
           </Scroll>
         </div>
       );
